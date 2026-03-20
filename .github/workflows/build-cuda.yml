@@ -21,7 +21,7 @@ jobs:
       release_hash: ${{ steps.check.outputs.release_hash }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -71,7 +71,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Maximize build space
         run: |
@@ -188,7 +188,7 @@ jobs:
           ls -lh *.tar.gz
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: llama.cpp-cuda-${{ matrix.cuda_version_short }}
           path: binaries/*.tar.gz
@@ -201,10 +201,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: artifacts
 
@@ -215,7 +215,7 @@ jobs:
           ls -lh release-assets/
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.check-release.outputs.release_tag }}
           name: llama.cpp ${{ needs.check-release.outputs.release_tag }} with CUDA
