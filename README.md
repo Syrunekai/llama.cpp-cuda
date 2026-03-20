@@ -1,5 +1,7 @@
 # llama.cpp CUDA Builds
 
+Forked from [ai-dock/llama.cpp-cuda](https://github.com/ai-dock/llama.cpp-cuda). This version adds CUDA 13.2 support alongside the original CUDA 12.8 builds.
+
 This repository automatically builds [llama.cpp](https://github.com/ggml-org/llama.cpp) with CUDA support for multiple NVIDIA GPU architectures and CUDA versions.
 
 ## Why This Repository?
@@ -15,13 +17,12 @@ The official llama.cpp repository does not provide pre-built CUDA binaries. This
 
 ### CUDA Versions
 - CUDA 12.8
+- CUDA 13.2
 
 ### GPU Architectures
 
 | Compute Capability | GPU Examples |
-|-------------------|--------------|----------------|------------|
-| 6.1 | Titan XP, Tesla P40, GTX 10xx |
-| 7.0 | Tesla V100 |
+|-------------------|--------------|
 | 7.5 | Tesla T4, RTX 2000 series, Quadro RTX |
 | 8.0 | A100 |
 | 8.6 | RTX 3000 series |
@@ -35,12 +36,12 @@ The official llama.cpp repository does not provide pre-built CUDA binaries. This
 ### Download
 
 1. Go to the [Releases](../../releases) page
-2. Download the tarball (e.g., `llama.cpp-bXXXX-cuda-12.8.tar.gz`)
+2. Download the tarball for your CUDA version (e.g., `llama.cpp-bXXXX-cuda-13.2.tar.gz`)
 3. Extract the archive:
 
 ```bash
-tar -xzf llama.cpp-bXXXX-cuda-12.8.tar.gz
-cd cuda-12.6
+tar -xzf llama.cpp-bXXXX-cuda-13.2.tar.gz
+cd cuda-13.2
 ```
 
 ### Run
@@ -72,7 +73,8 @@ cat VERSION.txt
 
 - NVIDIA GPU with compute capability 7.5 or higher
 - Appropriate NVIDIA driver for your CUDA version:
-  - CUDA 12.8+: Driver >= 570.15
+  - CUDA 12.8: Driver >= 570.15
+  - CUDA 13.2: Driver >= 580.00
 - Linux x86_64 (Ubuntu 22.04 compatible)
 
 ## Build Process
@@ -96,14 +98,12 @@ Select based on:
 2. **Your installed CUDA toolkit** - Match the version if possible
 3. **Your NVIDIA driver** - Ensure your driver supports the CUDA version
 
-If unsure, CUDA 12.6.3 offers the widest compatibility with modern GPUs (except Blackwell).
-
 ## Manual Building
 
 If you need a custom build:
 
 ```bash
-git clone https://github.com/ai-dock/llama.cpp-cuda
+git clone https://github.com/Syrunekai/llama.cpp-cuda
 cd llama.cpp-cuda
 
 # Edit .github/workflows/build-cuda.yml to customize architectures or CUDA versions
@@ -117,16 +117,11 @@ This repository contains build scripts only. The llama.cpp binaries are subject 
 ## Links
 
 - **Upstream llama.cpp**: https://github.com/ggml-org/llama.cpp
+- **Original build repo**: https://github.com/ai-dock/llama.cpp-cuda
 - **CUDA Toolkit**: https://developer.nvidia.com/cuda-toolkit
 - **NVIDIA Driver Downloads**: https://www.nvidia.com/download/index.aspx
-
-## Support
-
-For issues with:
-- **Build process or binaries**: Open an issue in this repository
-- **llama.cpp functionality**: Open an issue in the [upstream repository](https://github.com/ggml-org/llama.cpp/issues)
 
 ## Credits
 
 - [llama.cpp](https://github.com/ggml-org/llama.cpp) by Georgi Gerganov and contributors
-- Built and maintained by [ai-dock](https://github.com/ai-dock)
+- Original build pipeline by [ai-dock](https://github.com/ai-dock)
