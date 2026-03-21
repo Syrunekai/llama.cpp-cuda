@@ -1,6 +1,6 @@
 # llama.cpp CUDA Builds
 
-Forked from [ai-dock/llama.cpp-cuda](https://github.com/ai-dock/llama.cpp-cuda). This version adds CUDA 13.2 support alongside the original CUDA 12.9 builds.
+Forked from [ai-dock/llama.cpp-cuda](https://github.com/ai-dock/llama.cpp-cuda). This version updates the build pipeline to support CUDA 13.2.
 
 This repository automatically builds [llama.cpp](https://github.com/ggml-org/llama.cpp) with CUDA support for multiple NVIDIA GPU architectures and CUDA versions.
 
@@ -16,7 +16,6 @@ The official llama.cpp repository does not provide pre-built CUDA binaries. This
 ## Supported Configurations
 
 ### CUDA Versions
-- CUDA 12.9
 - CUDA 13.2
 
 ### GPU Architectures
@@ -74,14 +73,13 @@ cat VERSION.txt
 
 - NVIDIA GPU with compute capability 7.5 or higher
 - Appropriate NVIDIA driver for your CUDA version:
-  - CUDA 12.9: Driver >= 570.15
   - CUDA 13.2: Driver >= 580.00
 - Linux x86_64 (Ubuntu 24.04 compatible)
 
 ## Build Process
 
 Builds are triggered automatically:
-- Daily at 00:00 UTC
+- Twice weekly (Wednesday and Saturday) at 02:30 UTC
 - Only if a new llama.cpp release is detected
 - Can be manually triggered via GitHub Actions
 
@@ -94,14 +92,13 @@ Each build:
 
 ## Choosing Your CUDA Version
 
-Select based on:
-1. **Your GPU architecture** - Blackwell GPUs require CUDA 12.9+
-2. **Your installed CUDA toolkit** - Match the version if possible
-3. **Your NVIDIA driver** - Ensure your driver supports the CUDA version
+Ensure your NVIDIA driver supports CUDA 13.2 (driver >= 580.00). Blackwell and newer GPUs (compute capability 10.0+) require CUDA 12.9 or later.
 
 ## Manual Building
 
-If you need a custom build:
+If you need a custom build, there are two options:
+
+**Option 1: Edit the GitHub Actions workflow**
 
 ```bash
 git clone https://github.com/Syrunekai/llama.cpp-cuda
@@ -109,6 +106,20 @@ cd llama.cpp-cuda
 
 # Edit .github/workflows/build-cuda.yml to customize architectures or CUDA versions
 # Then trigger a manual workflow run
+```
+
+**Option 2: Build locally using Docker**
+
+```bash
+git clone https://github.com/Syrunekai/llama.cpp-cuda
+cd llama.cpp-cuda
+
+# Run the local build script (requires Docker)
+# Defaults to CUDA 13.2.0 and the latest llama.cpp release
+./scripts/local-build.sh
+
+# Or specify a CUDA version and llama.cpp tag
+./scripts/local-build.sh 13.2.0 b8460
 ```
 
 ## License
@@ -126,3 +137,4 @@ This repository contains build scripts only. The llama.cpp binaries are subject 
 
 - [llama.cpp](https://github.com/ggml-org/llama.cpp) by Georgi Gerganov and contributors
 - Original build pipeline by [ai-dock](https://github.com/ai-dock)
+- CUDA 13 & local build pipeline by [Syrunekai](https://github.com/Syrunekai) ⛩️, Runic Samurai Agent
