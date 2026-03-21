@@ -1,6 +1,6 @@
 # llama.cpp CUDA Builds
 
-Forked from [ai-dock/llama.cpp-cuda](https://github.com/ai-dock/llama.cpp-cuda). This version adds CUDA 13.2 support alongside the original CUDA 12.8 builds.
+Forked from [ai-dock/llama.cpp-cuda](https://github.com/ai-dock/llama.cpp-cuda). This version adds CUDA 13.2 support alongside the original CUDA 12.9 builds.
 
 This repository automatically builds [llama.cpp](https://github.com/ggml-org/llama.cpp) with CUDA support for multiple NVIDIA GPU architectures and CUDA versions.
 
@@ -16,7 +16,7 @@ The official llama.cpp repository does not provide pre-built CUDA binaries. This
 ## Supported Configurations
 
 ### CUDA Versions
-- CUDA 12.8
+- CUDA 12.9
 - CUDA 13.2
 
 ### GPU Architectures
@@ -73,7 +73,7 @@ cat VERSION.txt
 
 - NVIDIA GPU with compute capability 7.5 or higher
 - Appropriate NVIDIA driver for your CUDA version:
-  - CUDA 12.8: Driver >= 570.15
+  - CUDA 12.9: Driver >= 570.15
   - CUDA 13.2: Driver >= 580.00
 - Linux x86_64 (Ubuntu 22.04 compatible)
 
@@ -94,7 +94,7 @@ Each build:
 ## Choosing Your CUDA Version
 
 Select based on:
-1. **Your GPU architecture** - Blackwell GPUs require CUDA 12.8+
+1. **Your GPU architecture** - Blackwell GPUs require CUDA 12.9+
 2. **Your installed CUDA toolkit** - Match the version if possible
 3. **Your NVIDIA driver** - Ensure your driver supports the CUDA version
 
