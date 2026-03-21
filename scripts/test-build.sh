@@ -9,7 +9,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Default values
-CUDA_VERSION=${1:-"12.6.3"}
+CUDA_VERSION=${1:-"13.2.0"}
 LLAMA_TAG=${2:-"latest"}
 
 echo -e "${GREEN}llama.cpp CUDA Build Test${NC}"
@@ -40,9 +40,13 @@ case $CUDA_VERSION in
         CUDA_TAG="13.0.1-cudnn-devel-ubuntu22.04"
         ARCHITECTURES="75;80;86;89;90;100;120"
         ;;
+    13.2.0)
+        CUDA_TAG="13.2.0-cudnn-devel-ubuntu22.04"
+        ARCHITECTURES="75;80;86;89;90;100;120"
+        ;;
     *)
         echo -e "${RED}Error: Unsupported CUDA version $CUDA_VERSION${NC}"
-        echo "Supported versions: 12.4.1, 12.6.3, 12.8.1, 12.9.1, 13.0.1"
+        echo "Supported versions: 12.4.1, 12.6.3, 12.8.1, 12.9.1, 13.0.1, 13.2.0"
         exit 1
         ;;
 esac
