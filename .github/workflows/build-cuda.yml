@@ -160,8 +160,10 @@ jobs:
               echo '=== Bundling CUDA runtime ==='
               CUDA_LIB=/usr/local/cuda/targets/x86_64-linux/lib
               cp -a \${CUDA_LIB}/libcudart.so* binaries/cuda-${{ matrix.cuda_version_short }}/
-              echo 'Bundled libcudart:'
-              ls -lh binaries/cuda-${{ matrix.cuda_version_short }}/libcudart*
+              cp -a \${CUDA_LIB}/libcublas.so* binaries/cuda-${{ matrix.cuda_version_short }}/
+              cp -a \${CUDA_LIB}/libcublasLt.so* binaries/cuda-${{ matrix.cuda_version_short }}/
+              echo 'Bundled CUDA libs:'
+              ls -lh binaries/cuda-${{ matrix.cuda_version_short }}/libcuda* binaries/cuda-${{ matrix.cuda_version_short }}/libcublas*
 
               # Strip binaries to reduce size (executables only, not .so files)
               find binaries/cuda-${{ matrix.cuda_version_short }}/ -type f -executable ! -name "*.so*" -exec strip {} \; 2>/dev/null || true
