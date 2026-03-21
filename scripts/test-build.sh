@@ -21,27 +21,27 @@ echo ""
 # Validate CUDA version and set parameters
 case $CUDA_VERSION in
     12.4.1)
-        CUDA_TAG="12.4.1-devel-ubuntu22.04"
+        CUDA_TAG="12.4.1-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90"
         ;;
     12.6.3)
-        CUDA_TAG="12.6.3-devel-ubuntu22.04"
+        CUDA_TAG="12.6.3-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90"
         ;;
     12.8.1)
-        CUDA_TAG="12.8.1-cudnn-devel-ubuntu22.04"
+        CUDA_TAG="12.8.1-cudnn-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90;100;120"
         ;;
     12.9.1)
-        CUDA_TAG="12.9.1-cudnn-devel-ubuntu22.04"
+        CUDA_TAG="12.9.1-cudnn-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90;100;120"
         ;;
     13.0.1)
-        CUDA_TAG="13.0.1-cudnn-devel-ubuntu22.04"
+        CUDA_TAG="13.0.1-cudnn-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90;100;120"
         ;;
     13.2.0)
-        CUDA_TAG="13.2.0-cudnn-devel-ubuntu22.04"
+        CUDA_TAG="13.2.0-cudnn-devel-ubuntu24.04"
         ARCHITECTURES="75;80;86;89;90;100;120"
         ;;
     *)

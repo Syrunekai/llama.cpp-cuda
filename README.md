@@ -75,7 +75,7 @@ cat VERSION.txt
 - Appropriate NVIDIA driver for your CUDA version:
   - CUDA 12.9: Driver >= 570.15
   - CUDA 13.2: Driver >= 580.00
-- Linux x86_64 (Ubuntu 22.04 compatible)
+- Linux x86_64 (Ubuntu 24.04 compatible)
 
 ## Build Process
 
