@@ -156,6 +156,13 @@ jobs:
               # Copy everything from build/bin
               cp -r llama.cpp/build/bin/* binaries/cuda-${{ matrix.cuda_version_short }}/
 
+              # Bundle CUDA runtime so users don't need the full toolkit
+              echo '=== Bundling CUDA runtime ==='
+              CUDA_LIB=/usr/local/cuda/targets/x86_64-linux/lib
+              cp -a \${CUDA_LIB}/libcudart.so* binaries/cuda-${{ matrix.cuda_version_short }}/
+              echo 'Bundled libcudart:'
+              ls -lh binaries/cuda-${{ matrix.cuda_version_short }}/libcudart*
+
               # Strip binaries to reduce size (executables only, not .so files)
               find binaries/cuda-${{ matrix.cuda_version_short }}/ -type f -executable ! -name "*.so*" -exec strip {} \; 2>/dev/null || true
 

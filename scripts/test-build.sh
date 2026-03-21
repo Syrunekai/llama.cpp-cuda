@@ -107,6 +107,10 @@ docker run --rm -v $PWD:/workspace \
         cp -r test-build/build/bin/* binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
         cp test-build/build/ggml/src/libggml.so binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
         cp test-build/build/src/libllama.so binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
+
+        echo '=> Bundling CUDA runtime...'
+        CUDA_LIB=/usr/local/cuda/targets/x86_64-linux/lib
+        cp -a \${CUDA_LIB}/libcudart.so* binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
         
         echo '=> Creating version info...'
         cat > binaries/cuda-$CUDA_VERSION/VERSION.txt << EOF
