@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 CUDA_VERSION=${1:-"13.2.0"}
 LLAMA_TAG=${2:-"latest"}
 
-echo -e "${GREEN}llama.cpp CUDA Build Test${NC}"
+echo -e "${GREEN}llama.cpp CUDA Local Build${NC}"
 echo "================================"
 echo "CUDA Version: $CUDA_VERSION"
 echo "llama.cpp Tag: $LLAMA_TAG"
@@ -69,7 +69,7 @@ echo "  Architectures: $ARCHITECTURES"
 echo ""
 
 # Clean previous builds
-rm -rf binaries test-build
+rm -rf binaries local-build
 mkdir -p binaries/cuda-$CUDA_VERSION
 
 # Run build in Docker
@@ -87,8 +87,8 @@ docker run --rm -v $PWD:/workspace \
         rm -rf /var/lib/apt/lists/*
 
         echo '=> Cloning llama.cpp...'
-        git clone https://github.com/ggml-org/llama.cpp.git test-build
-        cd test-build
+        git clone https://github.com/ggml-org/llama.cpp.git local-build
+        cd local-build
         git checkout $RELEASE_HASH
 
         echo '=> Configuring build...'
@@ -111,7 +111,7 @@ docker run --rm -v $PWD:/workspace \
 
         echo '=> Copying binaries...'
         cd /workspace
-        cp -r test-build/build/bin/* binaries/cuda-$CUDA_VERSION/
+        cp -r local-build/build/bin/* binaries/cuda-$CUDA_VERSION/
 
         # Bundle CUDA runtime so users don't need the full toolkit
         echo '=> Bundling CUDA runtime...'
@@ -154,7 +154,7 @@ echo "Built binaries:"
 ls -lh binaries/cuda-$CUDA_VERSION/
 
 # Clean up source
-rm -rf test-build
+rm -rf local-build
 
 echo ""
-echo -e "${GREEN}Test build complete!${NC}"
+echo -e "${GREEN}Local build complete!${NC}"
