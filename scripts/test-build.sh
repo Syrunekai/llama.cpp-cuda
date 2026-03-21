@@ -82,35 +82,45 @@ docker run --rm -v $PWD:/workspace \
         
         echo '=> Installing dependencies...'
         apt-get update -qq
-        apt-get install -y -qq git cmake build-essential > /dev/null
-        
+        apt-get install -y --no-install-recommends -qq git cmake ninja-build build-essential libssl-dev ca-certificates > /dev/null
+        apt-get clean
+        rm -rf /var/lib/apt/lists/*
+
         echo '=> Cloning llama.cpp...'
         git clone https://github.com/ggml-org/llama.cpp.git test-build
         cd test-build
         git checkout $RELEASE_HASH
-        
+
         echo '=> Configuring build...'
-        mkdir -p build
-        cd build
-        
-        cmake .. \
+        export LIBRARY_PATH="/usr/local/cuda/lib64/stubs\${LIBRARY_PATH:+:\$LIBRARY_PATH}"
+        ln -sf /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
+        cmake -B build -S . \
+            -G Ninja \
             -DGGML_CUDA=ON \
             -DCMAKE_CUDA_ARCHITECTURES='$ARCHITECTURES' \
             -DCMAKE_BUILD_TYPE=Release \
-            -DBUILD_SHARED_LIBS=OFF > /dev/null
-        
-        echo '=> Building (this may take several minutes)...'
-        cmake --build . --config Release -j\$(nproc)
-        
+            -DBUILD_SHARED_LIBS=ON \
+            -DGGML_NATIVE=OFF \
+            -DLLAMA_BUILD_TESTS=OFF \
+            -DLLAMA_BUILD_EXAMPLES=OFF \
+            -DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/usr/local/cuda/lib64/stubs' \
+            -DCMAKE_SHARED_LINKER_FLAGS='-Wl,-rpath-link,/usr/local/cuda/lib64/stubs'
+
+        echo '=> Building with Ninja (parallel: all cores)...'
+        cmake --build build --config Release -j\$(nproc)
+
         echo '=> Copying binaries...'
         cd /workspace
-        cp -r test-build/build/bin/* binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
-        cp test-build/build/ggml/src/libggml.so binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
-        cp test-build/build/src/libllama.so binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
+        cp -r test-build/build/bin/* binaries/cuda-$CUDA_VERSION/
 
+        # Bundle CUDA runtime so users don't need the full toolkit
         echo '=> Bundling CUDA runtime...'
         CUDA_LIB=/usr/local/cuda/targets/x86_64-linux/lib
-        cp -a \${CUDA_LIB}/libcudart.so* binaries/cuda-$CUDA_VERSION/ 2>/dev/null || true
+        cp -a \${CUDA_LIB}/libcudart.so* binaries/cuda-$CUDA_VERSION/
+
+        # Strip binaries to reduce size (executables only, not .so files)
+        echo '=> Stripping binaries...'
+        find binaries/cuda-$CUDA_VERSION/ -type f -executable ! -name "*.so*" -exec strip {} \; 2>/dev/null || true
         
         echo '=> Creating version info...'
         cat > binaries/cuda-$CUDA_VERSION/VERSION.txt << EOF
