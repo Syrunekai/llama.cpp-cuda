@@ -30,6 +30,7 @@ The official llama.cpp repository does not provide pre-built CUDA binaries. This
 | 9.0 | H100, H200 |
 | 10.0 | B200 |
 | 12.0 | RTX Pro series, RTX 5000 series |
+| 12.1 | DGX Spark (GB10) |
 
 ## Usage
 

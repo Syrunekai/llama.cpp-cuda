@@ -38,11 +38,11 @@ case $CUDA_VERSION in
         ;;
     13.0.1)
         CUDA_TAG="13.0.1-cudnn-devel-ubuntu24.04"
-        ARCHITECTURES="75;80;86;89;90;100;120"
+        ARCHITECTURES="75;80;86;89;90;100;120;121"
         ;;
     13.2.0)
         CUDA_TAG="13.2.0-cudnn-devel-ubuntu24.04"
-        ARCHITECTURES="75;80;86;89;90;100;120"
+        ARCHITECTURES="75;80;86;89;90;100;120;121"
         ;;
     *)
         echo -e "${RED}Error: Unsupported CUDA version $CUDA_VERSION${NC}"
