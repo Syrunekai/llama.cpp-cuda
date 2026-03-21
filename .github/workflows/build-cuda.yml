@@ -2,8 +2,8 @@ name: Build llama.cpp with CUDA
 
 on:
   schedule:
-    # Run daily at 00:00 UTC
-    - cron: '0 0 * * *'
+    # Run every 3 days (Mon/Thu) at 00:00 UTC
+    - cron: '0 0 * * 1,4'
   workflow_dispatch:
     inputs:
       force_build:
