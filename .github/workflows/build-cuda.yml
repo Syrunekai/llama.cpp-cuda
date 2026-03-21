@@ -58,12 +58,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cuda_version: ['12.9.1', '13.2.0']
+        cuda_version: ['13.2.0']
         include:
-          - cuda_version: '12.9.1'
-            cuda_version_short: '12.9'
-            cuda_tag: '12.9.1-cudnn-devel-ubuntu22.04'
-            architectures: '75-virtual;80-virtual;86-virtual;89-virtual;90-virtual;100-virtual;120-virtual'
+          # CUDA 12.9 disabled to conserve GitHub Actions minutes
+          # - cuda_version: '12.9.1'
+          #   cuda_version_short: '12.9'
+          #   cuda_tag: '12.9.1-cudnn-devel-ubuntu22.04'
+          #   architectures: '75-virtual;80-virtual;86-virtual;89-virtual;90-virtual;100-virtual;120-virtual'
           - cuda_version: '13.2.0'
             cuda_version_short: '13.2'
             cuda_tag: '13.2.0-cudnn-devel-ubuntu22.04'
