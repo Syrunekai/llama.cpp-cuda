@@ -67,11 +67,11 @@ jobs:
           # - cuda_version: '12.9.1'
           #   cuda_version_short: '12.9'
           #   cuda_tag: '12.9.1-cudnn-devel-ubuntu24.04'
-          #   architectures: '75-virtual;80-virtual;86-virtual;89-virtual;90-virtual;100-virtual;120-virtual;121-virtual'
+          #   architectures: '75;80;86;89;90;100;120;121'
           - cuda_version: '13.2.0'
             cuda_version_short: '13.2'
             cuda_tag: '13.2.0-cudnn-devel-ubuntu24.04'
-            architectures: '75-virtual;80-virtual;86-virtual;89-virtual;90-virtual;100-virtual;120-virtual;121-virtual'
+            architectures: '75;80;86;89;90;100;120;121'
     
     steps:
       - name: Checkout
