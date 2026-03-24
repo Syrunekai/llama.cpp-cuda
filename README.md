@@ -79,7 +79,7 @@ cat VERSION.txt
 ## Build Process
 
 Builds are triggered automatically:
-- Twice weekly (Wednesday and Saturday) at 02:30 UTC
+- Weekly on Wednesday at 02:30 UTC
 - Only if a new llama.cpp release is detected
 - Can be manually triggered via GitHub Actions
 
